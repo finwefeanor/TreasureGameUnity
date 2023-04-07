@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SafeCombination : MonoBehaviour
 {
-    public GameObject safe_handle;
+    /*public GameObject safe_handle;
     public int safe_being_used = 0;
     public float safe_handle_rotation = 0;
     public float rotation_speed = 120;
@@ -22,8 +22,6 @@ public class SafeCombination : MonoBehaviour
     {
         current_unlock_stage = 0;
         CreateNewSafeCombination();
-
-
 
     }
 
@@ -196,5 +194,7 @@ public class SafeCombination : MonoBehaviour
         safe_handle.transform.localEulerAngles = new Vector3(safe_handle.transform.localEulerAngles.x, 0, safe_handle.transform.localEulerAngles.z);
 
     }
+    */
+
 
 }
