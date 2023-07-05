@@ -8,6 +8,8 @@ public class SafeCombination2 : MonoBehaviour
     public GameObject safeDoor;
     public GameObject treasure;
     public ParticleSystem glitterEffect;
+    public GameObject unlockSound;
+    public GameObject vaultOpenSound;
 
     public bool safeBeingUsed = false;
     public float safeHandleRotation = 0;
@@ -47,19 +49,20 @@ public class SafeCombination2 : MonoBehaviour
                 rotationDirection = 0;
             }
 
-            safeHandle.transform.localEulerAngles = new Vector3(safeHandle.transform.localEulerAngles.x, 
+            safeHandle.transform.localEulerAngles = new Vector3(safeHandle.transform.localEulerAngles.x,
                 safeHandleRotation, safeHandle.transform.localEulerAngles.z);
+            
         }
 
         // Handle user input
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             if (!safeBeingUsed)
             {
                 TurnCounterClockwise();
             }
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             if (!safeBeingUsed)
             {
@@ -71,8 +74,6 @@ public class SafeCombination2 : MonoBehaviour
     // Add the CreateNewSafeCombination method from the original code
     public void CreateNewSafeCombination()
     {
-
-
         int first_direction = Random.Range(-1, 1);
         if (first_direction < 0)
         {
@@ -109,6 +110,8 @@ public class SafeCombination2 : MonoBehaviour
             }
         }
 
+        Debug.Log("The combination is " + correctCombination[0] + correctCombination[1] + correctCombination[2]);
+
 
         //correct_combination = new int[] { -3, 2, -4 };
         //correct_combination_separated.Clear();
@@ -124,7 +127,6 @@ public class SafeCombination2 : MonoBehaviour
 
         //correct_combination_separated = new int[] { -1, -1, -1, 1, 1, -1, -1, -1, -1 };
 
-
     }
 
     public void TurnCounterClockwise()
@@ -133,6 +135,8 @@ public class SafeCombination2 : MonoBehaviour
         safeBeingUsed = true;
         currentRotationAmount = 0;
         rotationDirection = currentRotationNo;
+        safeDoor.GetComponent<AudioSource>().enabled = true;
+        safeDoor.GetComponent<AudioSource>().Play();
 
         CheckMoveAndUpdateStage();
     }
@@ -143,6 +147,10 @@ public class SafeCombination2 : MonoBehaviour
         safeBeingUsed = true;
         currentRotationAmount = 0;
         rotationDirection = currentRotationNo;
+        safeDoor.GetComponent<AudioSource>().enabled = true;
+        safeDoor.GetComponent<AudioSource>().Play();       
+
+
 
         CheckMoveAndUpdateStage();
     }
@@ -155,6 +163,9 @@ public class SafeCombination2 : MonoBehaviour
             if (currentUnlockStage >= correctCombinationSeparated.Count)
             {
                 safeDoor.GetComponent<Animator>().enabled = true;
+                unlockSound.GetComponent<AudioSource>().enabled = true;
+                unlockSound.GetComponent<AudioSource>().Play();
+                
                 OpenSafe();
             }
         }
@@ -169,7 +180,10 @@ public class SafeCombination2 : MonoBehaviour
         Debug.Log("Safe Opened!");
         if (safeDoor.GetComponent<Animator>().enabled == true)
         {
-            safeDoor.GetComponent<Animator>().Play("Base Layer.VaultDoorAnim", 0);
+            safeDoor.GetComponent<AudioSource>().enabled = false;
+            vaultOpenSound.GetComponent<AudioSource>().enabled = true;
+            vaultOpenSound.GetComponent<AudioSource>().Play();
+            safeDoor.GetComponent<Animator>().Play("Base Layer.newSafeAnim", 0);
         }
         //safeDoor.GetComponent<Animator>().enabled = true;
         
