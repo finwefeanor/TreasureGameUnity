@@ -269,7 +269,7 @@ MonoBehaviour:
   c: 0
 --- !u!95 &156770491
 Animator:
-  serializedVersion: 5
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -282,12 +282,10 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &435474189
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +554,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &653075826
 Animator:
-  serializedVersion: 5
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -569,12 +567,10 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &653075829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +615,10 @@ MonoBehaviour:
   correctCombination: ffffffff0100000003000000
   correctCombinationSeparated: 
   timerText: {fileID: 1806044172}
+  audio_source: {fileID: 0}
+  safe_sound_corect: {fileID: 8300000, guid: 5073f06a5dafec54cbf3a3c73a5be493, type: 3}
+  safe_sound_wrong: {fileID: 8300000, guid: d05c8ecaeec484949940492ab4268331, type: 3}
+  safe_sound_turn: {fileID: 8300000, guid: 4f97cb796ee0ff34b8eb5d6596ebf38d, type: 3}
 --- !u!82 &653075831
 AudioSource:
   m_ObjectHideFlags: 0
@@ -626,11 +626,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653075824}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe0a337a5d20c774d93a8dbed923383c, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

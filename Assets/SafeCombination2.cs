@@ -29,9 +29,16 @@ public class SafeCombination2 : MonoBehaviour
     private AudioSource unlockSoundAudio;
     private AudioSource vaultOpenSoundAudio;
 
+    public AudioSource audio_source;
+    public AudioClip safe_sound_corect;
+    public AudioClip safe_sound_wrong;
+    public AudioClip safe_sound_turn;
+
     // Start is called before the first frame update
     void Start()
     {
+        audio_source = GetComponent<AudioSource>(); 
+
         safeDoor.GetComponent<Animator>().enabled = false;
         
         currentUnlockStage = 0;
@@ -97,9 +104,9 @@ public class SafeCombination2 : MonoBehaviour
             first_direction = 1;
         }
 
-        int first_number = first_direction * Random.Range(1, 10);
-        int second_number = first_direction * (-1) * Random.Range(1, 10);
-        int third_number = first_direction * Random.Range(1, 10);
+        int first_number = first_direction * Random.Range(1, 5);
+        int second_number = first_direction * (-1) * Random.Range(1, 5);
+        int third_number = first_direction * Random.Range(1, 5);
 
         correctCombination = new int[] { first_number, second_number, third_number };
         correctCombinationSeparated.Clear();
@@ -123,7 +130,7 @@ public class SafeCombination2 : MonoBehaviour
             }
         }
 
-        Debug.Log("The combination is " + correctCombination[0] + correctCombination[1] + correctCombination[2]);
+        Debug.Log("The combination is " + correctCombination[0] + "," +  correctCombination[1] + "," + correctCombination[2]);
 
 
         //correct_combination = new int[] { -3, 2, -4 };
@@ -148,8 +155,9 @@ public class SafeCombination2 : MonoBehaviour
         isSafeBeingUsed = true;
         currentRotationAmount = 0;
         handleRotationDirection = currentRotationDirection;
-        safeDoorAudio.enabled = true;
-        safeDoorAudio.Play();
+        //safeDoorAudio.enabled = true;
+        //safeDoorAudio.Play();
+        audio_source.PlayOneShot(safe_sound_turn);
 
         CheckMoveAndUpdateStage();
     }
@@ -160,8 +168,9 @@ public class SafeCombination2 : MonoBehaviour
         isSafeBeingUsed = true;
         currentRotationAmount = 0;
         handleRotationDirection = currentRotationDirection;
-        safeDoorAudio.enabled = true;
-        safeDoorAudio.Play();
+        //safeDoorAudio.enabled = true;
+        //safeDoorAudio.Play();
+        audio_source.PlayOneShot(safe_sound_turn);
         CheckMoveAndUpdateStage();
     }
 
@@ -169,6 +178,7 @@ public class SafeCombination2 : MonoBehaviour
     {
         if (currentRotationDirection == correctCombinationSeparated[currentUnlockStage])
         {
+            Invoke("PlayCorrectSound", 0.2f);
             currentUnlockStage++;
             if (currentUnlockStage >= correctCombinationSeparated.Count)
             {
@@ -181,6 +191,7 @@ public class SafeCombination2 : MonoBehaviour
         }
         else
         {
+            Invoke("PlayWrongSound", 0.2f);
             StartCoroutine(WrongMoveReset());
         }
     }
@@ -247,5 +258,15 @@ public class SafeCombination2 : MonoBehaviour
         handleRotationDirection = 0;
         safeHandle.transform.localEulerAngles = new Vector3
             (safeHandle.transform.localEulerAngles.x, 0, safeHandle.transform.localEulerAngles.z);
+    }
+
+    public void PlayCorrectSound()
+    {
+        audio_source.PlayOneShot(safe_sound_corect);
+    }
+
+    public void PlayWrongSound()
+    {
+        audio_source.PlayOneShot(safe_sound_wrong);
     }
 }
