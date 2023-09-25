@@ -25,7 +25,7 @@ public class SafeCombination2 : MonoBehaviour
     public Text timerText;
     private float startTime;
 
-    private AudioSource safeDoorAudio;
+    private AudioSource safeDoorSoundAudio;
     private AudioSource unlockSoundAudio;
     private AudioSource vaultOpenSoundAudio;
 
@@ -45,7 +45,7 @@ public class SafeCombination2 : MonoBehaviour
         CreateNewSafeCombination();
         treasure.SetActive(false);
         glitterEffect.Stop();
-        safeDoorAudio = safeDoor.GetComponent<AudioSource>();
+        safeDoorSoundAudio = safeDoor.GetComponent<AudioSource>();
         unlockSoundAudio = unlockSound.GetComponent<AudioSource>();
         vaultOpenSoundAudio = vaultOpenSound.GetComponent<AudioSource>();
     }
@@ -69,9 +69,11 @@ public class SafeCombination2 : MonoBehaviour
                 handleRotationDirection = 0;
             }
 
-            safeHandle.transform.localEulerAngles = new Vector3(safeHandle.transform.localEulerAngles.x,
-                safeHandleRotation, safeHandle.transform.localEulerAngles.z);
-            
+            //safeHandle.transform.localEulerAngles = new Vector3(safeHandle.transform.localEulerAngles.x, //for safehandle where y is the right left rotation
+                //safeHandleRotation, safeHandle.transform.localEulerAngles.z);
+            safeHandle.transform.localEulerAngles = new Vector3(safeHandle.transform.localEulerAngles.x, //for imported models where right left rotation is different vector
+                safeHandle.transform.localEulerAngles.y, safeHandleRotation);
+
         }
 
         // Handle user input
@@ -182,7 +184,7 @@ public class SafeCombination2 : MonoBehaviour
             currentUnlockStage++;
             if (currentUnlockStage >= correctCombinationSeparated.Count)
             {
-                safeDoorAudio.enabled = true;
+                safeDoorSoundAudio.enabled = true;
                 unlockSoundAudio.enabled = true;
                 unlockSoundAudio.Play();
                 
@@ -206,10 +208,11 @@ public class SafeCombination2 : MonoBehaviour
         safeDoor.GetComponent<Animator>().enabled = true;
         Debug.Log("Safe Opened!");
 
-        safeDoorAudio.enabled = false;
+        safeDoorSoundAudio.enabled = false;
         vaultOpenSoundAudio.enabled = true;
         vaultOpenSoundAudio.Play();
-        safeDoor.GetComponent<Animator>().Play("Base Layer.newSafeAnim", 0);
+        //safeDoor.GetComponent<Animator>().Play("Base Layer.newSafeAnim", 0);
+        safeDoor.GetComponent<Animator>().Play("AnimatedVauldDoorClipOpening");
 
         // wait for 5 seconds before closing the safe
         Invoke("CloseSafe", 5f);
@@ -224,7 +227,8 @@ public class SafeCombination2 : MonoBehaviour
     private void CloseSafe()
     {
         // Plays the closing animation
-        safeDoor.GetComponent<Animator>().Play("closeDoorAnim");
+        //safeDoor.GetComponent<Animator>().Play("closeDoorAnim");
+        safeDoor.GetComponent<Animator>().Play("AnimatedVauldDoorClipClosing");
         glitterEffect.Stop();
 
         // Reset the safe after the animation ends
